@@ -12,6 +12,7 @@ const Render = () => {
           </CreatePostContext>
         )}
       ></Route>
+      <Route path='/create'></Route>
     </Switch>
   );
 };

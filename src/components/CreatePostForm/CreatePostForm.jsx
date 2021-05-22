@@ -6,6 +6,7 @@ const formInputsConfig = [
   { label: 'Title', type: 'text', name: 'title' },
   { label: 'Price', type: 'number', name: 'price' },
   { label: 'Address', type: 'text', name: 'address' },
+  { label: 'Phone', type: 'phone', name: 'phone' },
 ];
 
 const CreatePostForm = () => {
@@ -14,8 +15,8 @@ const CreatePostForm = () => {
   return (
     <div>
       <h1>Tell me more about your property</h1>
-      <Form config={formInputsConfig}>
-      </Form>
+      <Form config={formInputsConfig}/>
+     
 
       <div>
         <button

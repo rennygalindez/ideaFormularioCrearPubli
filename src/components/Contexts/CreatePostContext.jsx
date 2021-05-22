@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback } from 'react';
+import { createContext, useState, useCallback, useEffect } from 'react';
 
 export const CreatePostContext = createContext({});
 
@@ -9,14 +9,20 @@ const CreatePostProvider = ({ children, ...routerProps }) => {
     address: '',
     images: [],
   });
-  const handleOnInputsChange = useCallback(
-    (event) => {
-      const { target } = event;
-      const { name, value } = target;
-      setPostDetails({ ...postDetails, [name]: value });
-    },
-    [postDetails]
-  );
+  useEffect(() => {
+    const postDetailsLocalStorage = localStorage.getItem('postDetails');
+    if (!postDetailsLocalStorage) {
+      return;
+    }
+    setPostDetails(JSON.parse(postDetailsLocalStorage));
+  }, []);
+
+  const handleOnInputsChange = (event) => {
+    const { target } = event;
+    const { name, value } = target;
+    setPostDetails({ ...postDetails, [name]: value });
+    localStorage.setItem('postDetails', JSON.stringify(postDetails));
+  };
 
   const [currentComponent, setCurrentComponent] = useState('SelectPlan');
 
@@ -25,8 +31,8 @@ const CreatePostProvider = ({ children, ...routerProps }) => {
       value={{
         routerProps,
         postDetails,
-        setPostDetails,
         currentComponent,
+        setPostDetails,
         setCurrentComponent,
         handleOnInputsChange,
       }}
